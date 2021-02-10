@@ -9,6 +9,7 @@ GOAL #1: for n amount of connections located at positions (x_n, y_n),
 const {Coordinate, Client, DataCenter} =  require('./classes.js');
 const SERVER_MAX_CONN = 5;
 const LATENCY_MULT = 0.60;
+const BW)MULT = 0.30
 
 const distance = (c1, c2) => {
     let dx = c1.x - c2.x;
@@ -86,7 +87,7 @@ const configure_connections = (client_list, ordered_datacenters) => {
         servers.forEach((server) => {
             while(server.connections.length < SERVER_MAX_CONN && clients.length > 0){
                 let the_client = clients.shift()
-                the_client.remaining_bandwidth = the_client.remaining_bandwidth - (ordered_datacenters[i].latency * 0.3)
+                the_client.remaining_bandwidth = the_client.remaining_bandwidth - (ordered_datacenters[i].latency * BW_MULT)
                 if(the_client.remaining_bandwidth <= 0) {
                     console.log(`Client ${the_client.name} has run out of available bandwidth.`)
                 }
